@@ -1,3 +1,5 @@
+require('dotenv').config()
+const HDWalletProvider = require('@truffle/hdwallet-provider')
 /**
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
@@ -45,6 +47,10 @@ module.exports = {
       host: "127.0.0.1",     // Localhost (default: none)
       port: 8545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
+    },
+    veni: {
+        provider: () => new HDWalletProvider(process.env.WALLET_KEY, process.env.RPC_URL),
+        network_id: 0x1336,  // Venidium Testenet
     },
     // Another network with more advanced options...
     // advanced: {

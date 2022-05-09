@@ -9,6 +9,9 @@ contract Airdrop {
   uint256 intervalIncrement;
   uint256 dropRate;
   uint256 minDrop;
+
+  event Received(address, uint);
+
   constructor() {
       _owner = msg.sender;
       minInterval = 1 hours;
@@ -16,7 +19,11 @@ contract Airdrop {
       dropRate = 10000;     // each time drops: dropRate/1e6*balance
       minDrop = 1e16;       // 0.01 XVM
   }
-
+    
+  receive() external payable {
+    emit Received(msg.sender, msg.value);
+  }
+  
   function needWait() public view returns (uint256) {
       uint256 interval = minInterval + claimTimes[msg.sender]*intervalIncrement;
       if(recentClaims[msg.sender]+interval<=block.timestamp){
