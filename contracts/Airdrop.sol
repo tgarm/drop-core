@@ -45,6 +45,7 @@ contract Airdrop {
 
   function claim() public {
       uint256 amount = claimable();
+      require(needWait()==0, "need to wait");
       require(amount>0,"nothing to claim");
       address payable user = payable(msg.sender);
       user.transfer(amount);
